@@ -1,0 +1,7 @@
+# python .gitignore
+
+__pycache__
+backups
+logs
+credentials.json
+token.json
