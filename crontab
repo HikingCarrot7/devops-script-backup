@@ -1,0 +1,2 @@
+# At every 10th minute.
+*/10 * * * * /usr/bin/python3 /root/main.py > /proc/1/fd/1 2>/proc/1/fd/2

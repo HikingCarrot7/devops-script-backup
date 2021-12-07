@@ -1,6 +1,7 @@
 import configparser
 import csv
 import logging
+import os
 import os.path
 from datetime import datetime
 
@@ -162,5 +163,3 @@ if __name__ == '__main__':
     upload_to_drive(recently_backed_files)
 
     logging.info('Script finished successfully')
-
-    input("Press enter to exit ;)")
