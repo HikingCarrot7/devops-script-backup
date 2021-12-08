@@ -3,5 +3,3 @@
 __pycache__
 backups
 logs
-credentials.json
-token.json

@@ -127,7 +127,7 @@ def upload_to_drive(recently_backed_files):
         file_path = f'{BACKUP_FOLDER_PATH}{file_name}'
 
         file_metadata = {'name': file_name,
-                         'parents': ['1op1jEXiXWExXQFiquOZxIZLPW0tjBKr8']
+                         'parents': ['1yqUBdMyaGECEdTQEtuvHyaFT334sSarJ']
                          }
 
         service = build(
