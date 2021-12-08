@@ -16,14 +16,14 @@ COPY . .
 # Dependencies
 RUN python3 -m pip install -r requirements.txt
 
-# comment out PAM
+# Comment out PAM
 RUN sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
 
-#Add your cron file
+# Add your cron file
 ADD crontab /etc/cron.d/backup
 RUN chmod 0644 /etc/cron.d/backup
 
-#This will add it to the cron table (crontab -e)
+# This will add it to the cron table (crontab -e)
 RUN crontab /etc/cron.d/backup
 
 # Logstash config
@@ -33,5 +33,9 @@ RUN rm -f /usr/share/logstash/config/logstash.yml
 
 ADD logstash/ /usr/share/logstash/pipeline/
 
+# ENTRYPOINT curl http://host.docker.internal:9200
+
+# ENTRYPOINT python3 main.py
+
 ENTRYPOINT logstash & \
-    crond && tail -f /dev/null
+    python3 main.py

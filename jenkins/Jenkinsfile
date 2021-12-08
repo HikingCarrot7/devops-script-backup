@@ -1,0 +1,25 @@
+pipeline {
+
+    agent any
+
+    stage('Deploy') {
+
+        steps {
+            sh "docker build -t script-backup-" + env.GIT_BRANCH + ":1.0.0-" + env.BUILD_NUMBER + " ."
+            sh "docker ps | grep script-backup-" + env.GIT_BRANCH + " | awk '{print \$1}' | xargs -r docker stop &>/dev/null"
+
+            script {
+                sh "docker run -d --network=bridge script-backup-" + env.GIT_BRANCH + ":1.0.0-" + env.BUILD_NUMBER
+            }
+
+            echo 'Script deployed!'
+        }
+    }
+    
+    post {
+        
+        success {
+            echo "Build pipeline completed!"
+        }
+    }
+}

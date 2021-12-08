@@ -4,6 +4,7 @@ import logging
 import os
 import os.path
 from datetime import datetime
+import time
 
 import mysql.connector
 from google.auth.transport.requests import Request
@@ -88,7 +89,7 @@ def backup_database():
 
 
 def dump_to_csv(table_name, headers, rows):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     file_name = f'{table_name}-{timestamp}.csv'
 
     with open(f'{BACKUP_FOLDER_PATH}{file_name}', 'w', encoding='utf-8') as csv_file:
@@ -158,8 +159,11 @@ def upload_to_drive(recently_backed_files):
 
 
 if __name__ == '__main__':
-    recently_backed_files = backup_database()
+    while True:
+        recently_backed_files = backup_database()
 
-    upload_to_drive(recently_backed_files)
+        upload_to_drive(recently_backed_files)
 
-    logging.info('Script finished successfully')
+        logging.info('Script finished successfully')
+
+        time.sleep(10 * 60) # 10 minutos
